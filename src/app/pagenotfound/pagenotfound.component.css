@@ -1,0 +1,36 @@
+/* Estilos para página 404 */
+.error-404 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.error-404 h1 {
+  font-size: 6rem;
+  font-weight: bold;
+  color: #f44336;
+  margin: 0;
+}
+
+.error-404 p {
+  font-size: 2rem;
+  color: #555;
+  margin: 1rem 0 2rem;
+}
+
+.error-404 a {
+  font-size: 1.2rem;
+  color: #fff;
+  background-color: #f44336;
+  border-radius: 4px;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.error-404 a:hover {
+  background-color: #e53935;
+}
