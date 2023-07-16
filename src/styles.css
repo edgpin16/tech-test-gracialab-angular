@@ -12,3 +12,8 @@ body{
   background-size: cover;
   color: black;
 }
+
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
+@import "~bootstrap/dist/css/bootstrap.css";
