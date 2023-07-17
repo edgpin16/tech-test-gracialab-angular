@@ -10,13 +10,15 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { UsersReservationsComponent } from './users-reservations/users-reservations.component';
+import { PageResponseComponent } from './users-reservations/components/page-response/page-response.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     PagenotfoundComponent,
-    UsersReservationsComponent
+    UsersReservationsComponent,
+    PageResponseComponent
   ],
   imports: [
     BrowserModule,

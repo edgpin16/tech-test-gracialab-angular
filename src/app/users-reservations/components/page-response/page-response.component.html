@@ -1,0 +1,14 @@
+<div *ngIf="!responseData || isObjEmpty(); else noContent">
+  <div class="error-404">
+    <h1>404</h1>
+    <p>Lo siento, no hemos encontrado la página que buscabas :( .</p>
+    <a routerLink="/">Ir a la página de inicio</a>
+  </div>
+</div>
+
+<ng-template #noContent>
+  <h2 style="background-color: white;">Respuesta:</h2>
+  <pre>{{ responseData }}</pre>
+
+  <a class="button-success" routerLink="/">Ir a la página de inicio</a>
+</ng-template>
