@@ -1,1 +1,53 @@
-<p>login works!</p>
+<div class="container">
+  <h1>Formulario de login</h1>
+
+  <div class="col-md-12">
+    <div class="card card-container">
+      <div class="card-body">
+        <form
+        [formGroup]="form"
+        (ngSubmit)="onSubmit()"
+        >
+
+          <div class="form-group">
+            <label class="text-primary font-weight-bold" for="email">Email</label>
+            <input
+              type="email"
+              formControlName="email"
+              class="form-control"
+              id="email"
+              placeholder="Ingresa el email"
+              [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+            />
+            <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+              <div *ngIf="f['email'].errors['required']">El email es requerido</div>
+              <div *ngIf="f['email'].errors['email']">EL email no tiene un formato correcto</div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="text-primary font-weight-bold" for="password">Contrasena</label>
+            <input
+              type="password"
+              formControlName="password"
+              class="form-control"
+              id="password"
+              placeholder="Ingresa la contrasena"
+              [ngClass]="{ 'is-invalid': submitted && f['password'].errors }"
+            />
+            <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+              <div *ngIf="f['password'].errors['required']">La contrasena es requerida</div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">Login</button>
+
+          <div *ngIf="noCanAccess" class="text-danger font-weight-bold mt-2">
+            <p> No pudiste acceder al DASHBOARD </p>
+            <p> Verifica que eres un usuario valido y ADMIN  </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
