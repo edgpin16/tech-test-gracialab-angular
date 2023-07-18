@@ -12,6 +12,7 @@ import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { UsersReservationsComponent } from './users-reservations/users-reservations.component';
 import { PageResponseComponent } from './users-reservations/components/page-response/page-response.component';
 import { LoginComponent } from './auth/login/login.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { LoginComponent } from './auth/login/login.component';
     PagenotfoundComponent,
     UsersReservationsComponent,
     PageResponseComponent,
-    LoginComponent
+    LoginComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
