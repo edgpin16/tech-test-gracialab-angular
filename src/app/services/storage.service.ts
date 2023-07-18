@@ -29,4 +29,9 @@ export class StorageService {
     if (user) return true;
     return false;
   }
+
+  public getJWT() : string {
+    const { access_token = ''} = this.getUser();
+    return access_token;
+  }
 }
