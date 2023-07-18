@@ -34,6 +34,10 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
+    if(this.storageService.isLoggedIn())
+      this.router.navigate(['dashboard']);
+
     this.form = this.formBuilder.group(
       {
         email: ['', [Validators.required, Validators.email]],
