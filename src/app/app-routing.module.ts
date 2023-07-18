@@ -14,7 +14,7 @@ const routes: Routes = [
   { path : 'users-reservations', component : UsersReservationsComponent },
   { path : 'users-reservations/response', component : PageResponseComponent},
   { path : 'login', component: LoginComponent },
-  { path : 'dashboard', component : DashboardComponent, canActivate : [authGuard('')] },
+  { path : 'dashboard', component : DashboardComponent, canActivate : [authGuard('login')] },
   { path : '**', component : PagenotfoundComponent, pathMatch : 'full'}
 ];
 
