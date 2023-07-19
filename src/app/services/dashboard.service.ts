@@ -28,4 +28,16 @@ export class DashboardService {
       this.newHttpOptions
     );
   }
+
+  edit(data : UserReservation) : Observable< UserReservation> {
+    const res = this.http.patch<UserReservation>(
+      BASE_URL_DASHBOARD + '/update',
+      data,
+      this.newHttpOptions
+    );
+
+    console.log(res);
+
+    return res;
+  }
 }

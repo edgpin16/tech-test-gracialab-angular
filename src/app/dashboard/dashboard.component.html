@@ -1,1 +1,220 @@
-<p>dashboard works!</p>
+<div class="container">
+  <h1>Reservaciones</h1>
+  <table
+    id = "table"
+    class="table table-striped table-bordered"
+  >
+    <thead>
+      <tr>
+        <th colspan="6">Reservaciones</th>
+        <th colspan="6">Usuarios</th>
+        <th colspan="2">Acciones</th>
+      </tr>
+      <tr>
+        <th>Fecha</th>
+        <th>Tipo</th>
+        <th>Cantidad de personas</th>
+        <th>Descripcion</th>
+        <th>Observacion</th>
+        <th>Confirmado?</th>
+        <th>Numero de identificacion</th>
+        <th>Tipo de usuario</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Tipo de documento</th>
+        <th>Email</th>
+        <th>Confirmar reserva</th>
+        <th>Editar reserva</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let reservationItem of reservations" >
+        <td> {{ reservationItem.reservation_date }} </td>
+        <td> {{ reservationItem.reservation_type }} </td>
+        <td> {{ reservationItem.people_quantity }} </td>
+        <td> {{ reservationItem.description }} </td>
+        <td> {{ reservationItem.observation }} </td>
+        <td> {{ reservationItem.is_confirm}} </td>
+        <td> {{ reservationItem.user.identificacion_document}} </td>
+        <td *ngIf="reservationItem.user.type_rol === 2"> Cliente </td>
+        <td> {{ reservationItem.user.name }} </td>
+        <td> {{ reservationItem.user.last_name }} </td>
+        <td> {{ reservationItem.user.type_document }} </td>
+        <td> {{ reservationItem.user.email}} </td>
+        <td *ngIf="!reservationItem.is_confirm; else isNotConfirm">
+          <a href="" class="btn btn-info">Confirmar</a>
+        </td>
+        <ng-template #isNotConfirm>
+          <td> <button class="btn btn-success"> Confirmado </button> </td>
+        </ng-template>
+
+        <td>
+          <button class="btn btn-warning" (click)="showDialog(reservationItem)" > Editar </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal  -->
+<p-dialog
+    header="Formulario de edicion"
+    [(visible)]="visible"
+    [modal]="true"
+    [draggable]="false"
+    [resizable]="false"
+  >
+  <p-card header="Formulario de edicion">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <input type="hidden" name="id-reservation" formControlName="idReservation">
+      <div class="form-group">
+        <label>Documento de identificacion</label>
+        <input
+          type="text"
+          formControlName="identificacion_document"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f['identificacion_document'].errors }"
+        />
+        <div *ngIf="submitted && f['identificacion_document'].errors" class="invalid-feedback">
+          <div *ngIf="f['identificacion_document'].errors['required']">El documento de identificacion es requerido</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Nombre</label>
+        <input
+          type="text"
+          formControlName="name"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f['name'].errors }"
+        />
+        <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+          <div *ngIf="f['name'].errors['required']">El nombre es requerido</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label> Apellido </label>
+        <input
+          type="text"
+          formControlName="last_name"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f['last_name'].errors }"
+        />
+        <div *ngIf="submitted && f['last_name'].errors" class="invalid-feedback">
+          <div *ngIf="f['last_name'].errors['required']">El apellido es requerido</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label> Tipo de documento (Presiona en el input :) )</label>
+        <select
+          formControlName="type_document"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f['type_document'].errors }"
+        >
+          <option value="V">Venezolano</option>
+          <option value="E">Extranjero</option>
+        </select>
+        <div *ngIf="submitted && f['type_document'].errors" class="invalid-feedback">
+          <div *ngIf="f['type_document'].errors['required']">El tipo de documento es requerido</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Email</label>
+        <input
+          type="text"
+          formControlName="email"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+        />
+        <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+          <div *ngIf="f['email'].errors['required']">El email es requerido</div>
+          <div *ngIf="f['email'].errors['email']">EL email no tiene un formato correcto</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label> Fecha de la reservacion </label>
+        <input
+          type="date"
+          formControlName="reservation_date"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f['reservation_date'].errors }"
+        />
+        <div *ngIf="submitted && f['reservation_date'].errors" class="invalid-feedback">
+          <div *ngIf="f['reservation_date'].errors['required']">La fecha es requerida</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label> Tipo de reservacion (Presiona en el input :) )</label>
+        <select
+          formControlName="reservation_type"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f['reservation_type'].errors }"
+        >
+          <option value="cena">Cena</option>
+          <option value="almuerzo">Almuerzo</option>
+          <option value="onces">Onces</option>
+          <option value="cumplea#os">Cumplea#os</option>
+          <option value="ocasion_especial">Ocasion especial</option>
+        </select>
+        <div *ngIf="submitted && f['reservation_type'].errors" class="invalid-feedback">
+          <div *ngIf="f['reservation_type'].errors['required']">El tipo de reservacion es requerido</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Cantidad aproximado de personas</label>
+        <input
+          type="number"
+          formControlName="people_quantity"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f['people_quantity'].errors }"
+        />
+        <div *ngIf="submitted && f['people_quantity'].errors" class="invalid-feedback">
+          <div *ngIf="f['people_quantity'].errors['required']">La cantidad de personas es requerida</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label> Descripcion </label>
+        <input
+          type="text"
+          formControlName="description"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f['description'].errors }"
+        />
+        <div *ngIf="submitted && f['description'].errors" class="invalid-feedback">
+          <div *ngIf="f['description'].errors['required']">La descripcion es requerida</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label> Observacion </label>
+        <input
+          type="text"
+          formControlName="observation"
+          class="form-control"
+          [ngClass]="{ 'is-invalid': submitted && f['observation'].errors }"
+        />
+        <div *ngIf="submitted && f['observation'].errors" class="invalid-feedback">
+          <div *ngIf="f['observation'].errors['required']">La observacion es requerida</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary">Editar</button>
+        <button
+          type="button"
+          (click)="onReset()"
+          class="btn btn-warning float-right"
+        >
+          Reiniciar formulario
+        </button>
+      </div>
+    </form>
+  </p-card>
+</p-dialog>
