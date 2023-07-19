@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { DashboardService } from '../services/dashboard.service';
 import { UserReservation } from '../models/user-reservation.model';
+import { AuthService } from '../services/auth.service';
 
 import {
   AbstractControl,
@@ -41,6 +42,7 @@ export class DashboardComponent implements OnInit{
   constructor(
     private readonly dashboardService : DashboardService,
     private readonly formBuilder: FormBuilder,
+    private readonly authService : AuthService
   ){}
 
   ngOnInit(): void {
@@ -137,5 +139,9 @@ export class DashboardComponent implements OnInit{
         console.log(error);
       }
     });
+  }
+
+  public logout() : any{
+    this.authService.logout();
   }
 }
