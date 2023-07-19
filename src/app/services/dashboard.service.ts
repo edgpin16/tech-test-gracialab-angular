@@ -40,4 +40,15 @@ export class DashboardService {
 
     return res;
   }
+
+  confirmReservation(idReservation : number) : Observable<any>{
+    const res = this.http.patch<any>(
+      BASE_URL_DASHBOARD + '/confirm-reservation',
+      {idReservation},
+      this.newHttpOptions
+    );
+
+    console.log(res);
+    return res;
+  }
 }

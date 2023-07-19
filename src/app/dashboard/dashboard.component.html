@@ -42,7 +42,12 @@
         <td> {{ reservationItem.user.type_document }} </td>
         <td> {{ reservationItem.user.email}} </td>
         <td *ngIf="!reservationItem.is_confirm; else isNotConfirm">
-          <a href="" class="btn btn-info">Confirmar</a>
+          <button
+            class="btn btn-info"
+            (click)="onclickConfirmReservation(reservationItem?.id)"
+          >
+          Confirmar
+        </button>
         </td>
         <ng-template #isNotConfirm>
           <td> <button class="btn btn-success"> Confirmado </button> </td>

@@ -125,4 +125,17 @@ export class DashboardComponent implements OnInit{
       }
     });
   }
+
+  public onclickConfirmReservation(idReservation : number = 0) : void {
+    this.dashboardService.confirmReservation(idReservation)
+    .subscribe({
+      next: (res) => {
+        console.log(res);
+        location.reload()
+      },
+      error: ({ error }) => {
+        console.log(error);
+      }
+    });
+  }
 }
